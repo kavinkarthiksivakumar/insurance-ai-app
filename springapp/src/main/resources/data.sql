@@ -1,0 +1,2 @@
+-- Data is seeded by SpringappApplication.java CommandLineRunner
+-- No manual SQL inserts needed (H2 uses Java seeding)

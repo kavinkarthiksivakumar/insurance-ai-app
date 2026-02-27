@@ -1,0 +1,123 @@
+﻿mvn : WARNING: A terminally deprecated method in sun.misc.Unsafe 
+has been called
+At line:1 char:101
++ ... cess -Force; Start-Sleep -Seconds 2; mvn spring-boot:run 
+2>&1 | Out-F ...
++                                          
+~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (WARNING: A term...ha 
+   s been called:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+WARNING: sun.misc.Unsafe::staticFieldBase has been called by 
+com.google.inject.internal.aop.HiddenClassDefiner (file:/C:/Progra
+m%20Files/Apache/apache-maven-3.9.11/lib/guice-5.1.0-classes.jar)
+WARNING: Please consider reporting this to the maintainers of 
+class com.google.inject.internal.aop.HiddenClassDefiner
+WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a 
+future release
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------------< com.examly:springapp >------------------------
+[INFO] Building springapp 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.2.1:run (default-cli) > test-compile @ springapp >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ springapp ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 3 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ springapp ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ springapp ---
+[INFO] skip non existing resourceDirectory C:\Users\KAVIN\Downloads\insurance-claims-app-master\insurance-claims-app-master\springapp\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ springapp ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] <<< spring-boot:3.2.1:run (default-cli) < test-compile @ springapp <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.2.1:run (default-cli) @ springapp ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.1)
+
+2026-02-26T08:54:59.330+05:30  INFO 14644 --- [insure-flow] [           main] c.examly.springapp.SpringappApplication  : Starting SpringappApplication using Java 25 with PID 14644 (C:\Users\KAVIN\Downloads\insurance-claims-app-master\insurance-claims-app-master\springapp\target\classes started by KAVIN in C:\Users\KAVIN\Downloads\insurance-claims-app-master\insurance-claims-app-master\springapp)
+2026-02-26T08:54:59.333+05:30  INFO 14644 --- [insure-flow] [           main] c.examly.springapp.SpringappApplication  : No active profile set, falling back to 1 default profile: "default"
+2026-02-26T08:55:00.051+05:30  INFO 14644 --- [insure-flow] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-26T08:55:00.151+05:30  INFO 14644 --- [insure-flow] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 92 ms. Found 8 JPA repository interfaces.
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by org.apache.tomcat.jni.Library in an unnamed module (file:/C:/Users/KAVIN/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/10.1.17/tomcat-embed-core-10.1.17.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+2026-02-26T08:55:01.063+05:30  INFO 14644 --- [insure-flow] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-02-26T08:55:01.075+05:30  INFO 14644 --- [insure-flow] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-26T08:55:01.075+05:30  INFO 14644 --- [insure-flow] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.17]
+2026-02-26T08:55:01.136+05:30  INFO 14644 --- [insure-flow] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-26T08:55:01.137+05:30  INFO 14644 --- [insure-flow] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1753 ms
+2026-02-26T08:55:01.166+05:30  INFO 14644 --- [insure-flow] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-26T08:55:01.397+05:30  INFO 14644 --- [insure-flow] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./data/insurance_db user=SA
+2026-02-26T08:55:01.399+05:30  INFO 14644 --- [insure-flow] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-26T08:55:01.412+05:30  INFO 14644 --- [insure-flow] [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./data/insurance_db'
+2026-02-26T08:55:01.628+05:30  INFO 14644 --- [insure-flow] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-26T08:55:01.771+05:30  INFO 14644 --- [insure-flow] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.1.Final
+2026-02-26T08:55:01.863+05:30  INFO 14644 --- [insure-flow] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-26T08:55:02.314+05:30  INFO 14644 --- [insure-flow] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-26T08:55:02.367+05:30  WARN 14644 --- [insure-flow] [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-26T08:55:03.250+05:30  INFO 14644 --- [insure-flow] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-26T08:55:03.303+05:30  INFO 14644 --- [insure-flow] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-26T08:55:03.846+05:30  INFO 14644 --- [insure-flow] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-26T08:55:04.312+05:30  INFO 14644 --- [insure-flow] [           main] c.e.s.s.DocumentRequirementService       : Document requirements already initialized. Skipping...
+2026-02-26T08:55:04.355+05:30  WARN 14644 --- [insure-flow] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-26T08:55:04.578+05:30  INFO 14644 --- [insure-flow] [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3b6d94fc, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@71c77042, org.springframework.security.web.context.SecurityContextHolderFilter@5f0c04d2, org.springframework.security.web.header.HeaderWriterFilter@fb69ab1, org.springframework.web.filter.CorsFilter@665fb1d8, org.springframework.security.web.authentication.logout.LogoutFilter@1bef1304, com.examly.springapp.security.JwtAuthFilter@28b7646, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7c3920a7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@12e5f7cb, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@142ac60e, org.springframework.security.web.session.SessionManagementFilter@4a7b42db, org.springframework.security.web.access.ExceptionTranslationFilter@7f8586f9, org.springframework.security.web.access.intercept.AuthorizationFilter@3a7e13c0]
+2026-02-26T08:55:04.797+05:30  INFO 14644 --- [insure-flow] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path ''
+2026-02-26T08:55:04.804+05:30  INFO 14644 --- [insure-flow] [           main] c.examly.springapp.SpringappApplication  : Started SpringappApplication in 6.102 seconds (process running for 6.752)
+2026-02-26T08:55:48.313+05:30  INFO 14644 --- [insure-flow] [0.0-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-26T08:55:48.314+05:30  INFO 14644 --- [insure-flow] [0.0-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-26T08:55:48.315+05:30  INFO 14644 --- [insure-flow] [0.0-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-02-26T08:55:48.329+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2026-02-26T08:55:48.339+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-26T08:55:48.342+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+2026-02-26T08:55:48.627+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-1] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2026-02-26T08:55:49.081+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing POST /api/claims
+2026-02-26T08:55:49.109+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured POST /api/claims
+2026-02-26T08:55:49.115+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-9] horizationManagerBeforeMethodInterceptor : Authorizing method invocation ReflectiveMethodInvocation: public com.examly.springapp.model.Claim com.examly.springapp.controller.ClaimController.createClaim(com.examly.springapp.dto.ClaimRequest); target is of class [com.examly.springapp.controller.ClaimController]
+2026-02-26T08:55:49.138+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-9] horizationManagerBeforeMethodInterceptor : Authorized method invocation ReflectiveMethodInvocation: public com.examly.springapp.model.Claim com.examly.springapp.controller.ClaimController.createClaim(com.examly.springapp.dto.ClaimRequest); target is of class [com.examly.springapp.controller.ClaimController]
+2026-02-26T08:55:49.553+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing POST /api/claims/65/documents
+2026-02-26T08:55:49.559+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured POST /api/claims/65/documents
+2026-02-26T08:55:49.735+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/claims/my
+2026-02-26T08:55:49.742+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/claims/my
+2026-02-26T08:55:49.743+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-5] horizationManagerBeforeMethodInterceptor : Authorizing method invocation ReflectiveMethodInvocation: public java.util.List com.examly.springapp.controller.ClaimController.getMyClaims(); target is of class [com.examly.springapp.controller.ClaimController]
+2026-02-26T08:55:49.743+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-5] horizationManagerBeforeMethodInterceptor : Authorized method invocation ReflectiveMethodInvocation: public java.util.List com.examly.springapp.controller.ClaimController.getMyClaims(); target is of class [com.examly.springapp.controller.ClaimController]
+2026-02-26T08:55:49.914+05:30 DEBUG 14644 --- [insure-flow] [.0-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2026-02-26T08:55:49.914+05:30 DEBUG 14644 --- [insure-flow] [.0-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-26T08:55:49.915+05:30 DEBUG 14644 --- [insure-flow] [.0-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+2026-02-26T08:55:49.985+05:30 DEBUG 14644 --- [insure-flow] [.0-8081-exec-10] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2026-02-26T08:55:50.053+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/claims
+2026-02-26T08:55:50.060+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/claims
+2026-02-26T08:55:50.064+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-3] horizationManagerBeforeMethodInterceptor : Authorizing method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.examly.springapp.controller.ClaimController.getAllClaims(int,int,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.Double,java.lang.Double); target is of class [com.examly.springapp.controller.ClaimController]
+2026-02-26T08:55:50.066+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-3] horizationManagerBeforeMethodInterceptor : Authorized method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.examly.springapp.controller.ClaimController.getAllClaims(int,int,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.Double,java.lang.Double); target is of class [com.examly.springapp.controller.ClaimController]
+2026-02-26T08:55:50.156+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/claims/65/details
+2026-02-26T08:55:50.166+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/claims/65/details
+2026-02-26T08:55:50.169+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-2] horizationManagerBeforeMethodInterceptor : Authorizing method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.examly.springapp.controller.ClaimController.getClaimDetails(java.lang.Long); target is of class [com.examly.springapp.controller.ClaimController]
+2026-02-26T08:55:50.169+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-2] horizationManagerBeforeMethodInterceptor : Authorized method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.examly.springapp.controller.ClaimController.getClaimDetails(java.lang.Long); target is of class [com.examly.springapp.controller.ClaimController]
+2026-02-26T08:55:50.427+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing PUT /api/claims/65/approve
+2026-02-26T08:55:50.435+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured PUT /api/claims/65/approve
+2026-02-26T08:55:50.438+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-6] horizationManagerBeforeMethodInterceptor : Authorizing method invocation ReflectiveMethodInvocation: public com.examly.springapp.model.Claim com.examly.springapp.controller.ClaimController.approveClaim(java.lang.Long,com.examly.springapp.dto.ClaimStatusUpdateRequest); target is of class [com.examly.springapp.controller.ClaimController]
+2026-02-26T08:55:50.438+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-6] horizationManagerBeforeMethodInterceptor : Authorized method invocation ReflectiveMethodInvocation: public com.examly.springapp.model.Claim com.examly.springapp.controller.ClaimController.approveClaim(java.lang.Long,com.examly.springapp.dto.ClaimStatusUpdateRequest); target is of class [com.examly.springapp.controller.ClaimController]
+2026-02-26T08:55:50.585+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing DELETE /api/claims/65
+2026-02-26T08:55:50.592+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured DELETE /api/claims/65
+2026-02-26T08:55:50.594+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-7] horizationManagerBeforeMethodInterceptor : Authorizing method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.examly.springapp.controller.ClaimController.deleteClaim(java.lang.Long); target is of class [com.examly.springapp.controller.ClaimController]
+2026-02-26T08:55:50.595+05:30 DEBUG 14644 --- [insure-flow] [0.0-8081-exec-7] horizationManagerBeforeMethodInterceptor : Authorized method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.examly.springapp.controller.ClaimController.deleteClaim(java.lang.Long); target is of class [com.examly.springapp.controller.ClaimController]
+^C

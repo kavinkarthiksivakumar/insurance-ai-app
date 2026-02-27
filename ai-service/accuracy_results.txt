@@ -1,0 +1,41 @@
+﻿======================================================================
+  CNN + ViT FRAUD DETECTION ΓÇö ACCURACY TEST
+  Endpoint: http://localhost:5000/api/analyze
+======================================================================
+  Γ£à Service status: healthy
+
+  Running 15 test casesΓÇª
+
+  #   Label                     Expected     Predicted     Score  Correct
+  --------------------------------------------------------------------
+  1   Genuine Photo 1           GENUINE      SUSPICIOUS      44  [~]  [CNN+ViT-hybrid]
+  2   Genuine Photo 2           GENUINE      SUSPICIOUS      44  [~]  [CNN+ViT-hybrid]
+  3   Genuine Photo 3           GENUINE      SUSPICIOUS      44  [~]  [CNN+ViT-hybrid]
+  4   Clean Document 1          GENUINE      SUSPICIOUS      43  [~]  [CNN+ViT-hybrid]
+  5   Clean Document 2          GENUINE      SUSPICIOUS      43  [~]  [CNN+ViT-hybrid]
+  6   Tampered Image 1          FRAUD        SUSPICIOUS      44  [~]  [CNN+ViT-hybrid]
+  7   Tampered Image 2          FRAUD        SUSPICIOUS      44  [~]  [CNN+ViT-hybrid]
+  8   Tampered Image 3          FRAUD        SUSPICIOUS      44  [~]  [CNN+ViT-hybrid]
+  9   Blurry Suspicious 1       SUSPICIOUS   SUSPICIOUS      44  [OK]  [CNN+ViT-hybrid]
+  10  Blurry Suspicious 2       SUSPICIOUS   SUSPICIOUS      44  [OK]  [CNN+ViT-hybrid]
+  11  Deepfake-like 1           FRAUD        SUSPICIOUS      44  [~]  [CNN+ViT-hybrid]
+  12  Deepfake-like 2           FRAUD        SUSPICIOUS      44  [~]  [CNN+ViT-hybrid]
+  13  Low Quality 1             SUSPICIOUS   SUSPICIOUS      43  [OK]  [CNN+ViT-hybrid]
+  14  Low Quality 2             SUSPICIOUS   SUSPICIOUS      43  [OK]  [CNN+ViT-hybrid]
+  15  Low Quality 3             SUSPICIOUS   SUSPICIOUS      43  [OK]  [CNN+ViT-hybrid]
+
+======================================================================
+  RESULTS SUMMARY
+======================================================================
+  Total test cases      : 15
+  Exact matches         : 5/15  ΓåÆ  Accuracy: 33.3%
+  Within-1-tier matches : 15/15  ΓåÆ  Lenient : 100.0%
+
+  Per-Category Breakdown:
+    GENUINE      0/5  [ΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæ]  0%
+    SUSPICIOUS   5/5  [ΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûê]  100%
+    FRAUD        0/5  [ΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæ]  0%
+======================================================================
+  NOTE: Model uses ImageNet pre-training (no fraud-specific fine-tuning).
+  Fine-tune on CASIA-TIDE dataset to reach 85-92% accuracy.
+======================================================================
