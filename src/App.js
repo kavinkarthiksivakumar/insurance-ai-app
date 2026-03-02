@@ -9,6 +9,7 @@ import PrivateRoute from './components/PrivateRoute';
 import Dashboard from './pages/Dashboard';
 import Claims from './pages/Claims';
 import NewClaim from './pages/NewClaim';
+import Reports from './pages/Reports';
 
 function App() {
   return (
@@ -29,6 +30,10 @@ function App() {
 
             <Route element={<PrivateRoute allowedRoles={['CUSTOMER']} />}>
               <Route path="/new-claim" element={<NewClaim />} />
+            </Route>
+
+            <Route element={<PrivateRoute allowedRoles={['ADMIN']} />}>
+              <Route path="/reports" element={<Reports />} />
             </Route>
           </Route>
         </Routes>

@@ -55,6 +55,10 @@ public class ClaimService {
         return claimRepository.findAll();
     }
 
+    public List<Claim> getAllClaimsUnpaged() {
+        return claimRepository.findAll();
+    }
+
     public Map<String, Object> getAllClaimsWithFilters(
             int page, int size, String sortBy, String sortDir,
             String status, String claimType, Double minAmount, Double maxAmount) {

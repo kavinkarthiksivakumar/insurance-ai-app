@@ -89,6 +89,12 @@ export const verifyDescription = async (id) => {
     return response.data;
 };
 
+// ─── Admin Stats ─────────────────────────────────────────────
+export const getAdminStats = async () => {
+    const response = await api.get('/claims/stats');
+    return response.data;
+};
+
 // ─── Default export for backward-compat ─────────────────────
 export default {
     getMyClaims,
