@@ -81,15 +81,19 @@ const Register = () => {
         name: '',
         email: '',
         password: '',
-        role: 'CUSTOMER',
+        confirmPassword: '',
         countryCode: '+91', // Default to India
         phoneNumber: '',
         aadharNumber: ''
+        // NOTE: No 'role' field — backend always assigns CUSTOMER for public registration
     });
     const [error, setError] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [showPhone, setShowPhone] = useState(false);
     const [showAadhar, setShowAadhar] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const { register } = useAuth();
     const navigate = useNavigate();
 
@@ -156,30 +160,48 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
+        setSuccessMessage('');
 
-        // Validate password strength
+        // Client-side password match check
+        if (formData.password !== formData.confirmPassword) {
+            setError('Passwords do not match. Please re-enter.');
+            return;
+        }
+
+        // Validate password strength before sending to server
         if (passwordStrength.strength < 3) {
             setError('Password is too weak. Please follow the requirements below.');
             return;
         }
 
-        // Combine country code with phone number for international format
+        setIsSubmitting(true);
         const fullPhoneNumber = `${formData.countryCode}${formData.phoneNumber}`;
 
+        // Role is intentionally NOT sent — backend always assigns CUSTOMER
         const result = await register(
             formData.name,
             formData.email,
             formData.password,
-            formData.role,
+            'CUSTOMER',       // explicit — no role injection from frontend
             fullPhoneNumber,
             formData.aadharNumber
         );
 
+        setIsSubmitting(false);
+
         if (result.success) {
-            alert('Registration successful! Please log in.');
-            navigate('/login');
+            setSuccessMessage('Account created successfully! Redirecting to login…');
+            setTimeout(() => navigate('/login'), 2000);
         } else {
-            setError(result.message || 'Registration failed. Please check your inputs.');
+            // Handle specific error types from backend
+            const msg = result.message || '';
+            if (msg.includes('409') || msg.toLowerCase().includes('already')) {
+                setError('This email address is already registered. Please sign in or use a different email.');
+            } else if (msg.includes('400') || msg.toLowerCase().includes('validation')) {
+                setError('Please check all fields and try again. ' + msg);
+            } else {
+                setError(result.message || 'Registration failed. Please check your inputs and try again.');
+            }
         }
     };
 
@@ -387,19 +409,46 @@ const Register = () => {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Account Type</label>
-                                <select
-                                    name="role"
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
-                                    value={formData.role}
-                                    onChange={handleChange}
-                                >
-                                    <option value="CUSTOMER">Customer</option>
-                                    <option value="AGENT">Agent</option>
-                                    <option value="ADMIN">Administrator</option>
-                                </select>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
+                                <div className="relative">
+                                    <input
+                                        type={showConfirmPassword ? "text" : "password"}
+                                        name="confirmPassword"
+                                        placeholder="••••••••"
+                                        className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                                        value={formData.confirmPassword}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                                    >
+                                        {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                                    </button>
+                                </div>
+                                {formData.confirmPassword && formData.password !== formData.confirmPassword && (
+                                    <p className="text-xs text-red-500 mt-1">Passwords do not match</p>
+                                )}
+                                {formData.confirmPassword && formData.password === formData.confirmPassword && (
+                                    <p className="text-xs text-green-600 mt-1">✓ Passwords match</p>
+                                )}
                             </div>
 
+                            {/* Role note — informational only, cannot be changed by user */}
+                            <div className="flex items-center gap-2 bg-blue-50 border border-blue-200 rounded-lg px-4 py-2">
+                                <span className="text-blue-600 text-sm">🛡️</span>
+                                <p className="text-xs text-blue-700">
+                                    <strong>Account type:</strong> Customer — you can submit and track insurance claims after registration.
+                                </p>
+                            </div>
+
+                            {successMessage && (
+                                <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg text-sm flex items-center gap-2">
+                                    <span>✅</span> {successMessage}
+                                </div>
+                            )}
                             {error && (
                                 <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
                                     {error}
@@ -408,9 +457,10 @@ const Register = () => {
 
                             <button
                                 type="submit"
-                                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                                disabled={isSubmitting}
+                                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition shadow-md hover:shadow-lg transform hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
                             >
-                                Create Account
+                                {isSubmitting ? 'Creating Account…' : 'Create Account'}
                             </button>
                         </div>
 

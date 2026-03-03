@@ -11,6 +11,7 @@ from metadata_analyzer import MetadataAnalyzer
 from evidence_classifier import EvidenceClassifier
 from ocr_extractor import OcrExtractor
 from relevance_analyzer import RelevanceAnalyzer
+from fraud_analysis_agent import FraudAnalysisAgent
 
 app = FastAPI(title="Insurance Fraud Detection AI Service", version="1.0.0")
 
@@ -30,6 +31,7 @@ metadata_analyzer = MetadataAnalyzer()
 evidence_classifier = EvidenceClassifier()
 ocr_extractor = OcrExtractor()
 relevance_analyzer = RelevanceAnalyzer()
+fraud_analysis_agent = FraudAnalysisAgent()
 
 # Temporary storage for uploaded files
 UPLOAD_DIR = Path("temp_uploads")
@@ -308,6 +310,78 @@ async def analyze_relevance(request: dict):
             status_code=500,
             detail=f"Error analyzing relevance: {str(e)}"
         )
+
+
+
+
+@app.post("/api/fraud/verify")
+async def verify_fraud(image: UploadFile = File(...)):
+    """
+    AI Insurance Claim Verification and Fraud Analysis Agent.
+
+    Accepts an image upload and returns a STRICT structured JSON:
+
+    {
+      "fraud_score": int (0-100),
+      "verdict": "GENUINE" | "SUSPICIOUS" | "FRAUD",
+      "risk_breakdown": {
+          "image_manipulation": int,
+          "metadata_tampering": int,
+          "deepfake_indicators": int,
+          "contextual_signals": int
+      },
+      "confidence": float (0.0 - 1.0),
+      "recommended_action": "APPROVE" | "REVIEW" | "REJECT"
+    }
+
+    No additional keys. No explanations. No markdown. Only valid JSON.
+    """
+    temp_file_path = None
+
+    try:
+        # Accept images only
+        if not image.content_type or not image.content_type.startswith("image/"):
+            raise HTTPException(
+                status_code=400,
+                detail="Invalid file type. Only image files are accepted."
+            )
+
+        # Save temporarily
+        temp_file_path = UPLOAD_DIR / f"verify_{image.filename}"
+        with open(temp_file_path, "wb") as buffer:
+            shutil.copyfileobj(image.file, buffer)
+
+        # Run structured fraud analysis
+        result = fraud_analysis_agent.analyze(str(temp_file_path))
+
+        # Strict validation before returning
+        breakdown = result.get("risk_breakdown", {})
+        computed_sum = (
+            breakdown.get("image_manipulation", 0)
+            + breakdown.get("metadata_tampering", 0)
+            + breakdown.get("deepfake_indicators", 0)
+            + breakdown.get("contextual_signals", 0)
+        )
+
+        # Ensure fraud_score == sum of breakdown (as per spec)
+        if result["fraud_score"] != computed_sum:
+            result["fraud_score"] = computed_sum
+
+        return JSONResponse(status_code=200, content=result)
+
+    except HTTPException:
+        raise
+    except Exception as exc:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Fraud verification failed: {str(exc)}"
+        )
+    finally:
+        if temp_file_path and Path(temp_file_path).exists():
+            try:
+                os.remove(temp_file_path)
+            except Exception:
+                pass
 
 
 if __name__ == "__main__":

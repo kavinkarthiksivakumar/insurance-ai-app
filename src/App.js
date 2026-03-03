@@ -10,6 +10,7 @@ import Dashboard from './pages/Dashboard';
 import Claims from './pages/Claims';
 import NewClaim from './pages/NewClaim';
 import Reports from './pages/Reports';
+import FraudAnalysis from './pages/FraudAnalysis';
 
 function App() {
   return (
@@ -35,6 +36,10 @@ function App() {
             <Route element={<PrivateRoute allowedRoles={['ADMIN']} />}>
               <Route path="/reports" element={<Reports />} />
             </Route>
+
+            <Route element={<PrivateRoute allowedRoles={['AGENT', 'ADMIN']} />}>
+              <Route path="/fraud-analysis" element={<FraudAnalysis />} />
+            </Route>
           </Route>
         </Routes>
       </AuthProvider>
@@ -43,3 +48,4 @@ function App() {
 }
 
 export default App;
+

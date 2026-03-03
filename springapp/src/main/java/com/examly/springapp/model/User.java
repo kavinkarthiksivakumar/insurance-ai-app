@@ -2,6 +2,7 @@ package com.examly.springapp.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
@@ -35,6 +36,14 @@ public class User implements UserDetails {
 
     @Column(unique = true)
     private String aadharNumber;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
 
     public enum UserRole {
         CUSTOMER, AGENT, ADMIN

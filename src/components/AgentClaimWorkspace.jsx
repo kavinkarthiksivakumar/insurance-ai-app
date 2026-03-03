@@ -7,6 +7,7 @@ import {
 import { getDocuments, getDocumentUrl } from '../api/documentsApi';
 import { triggerFraudAnalysis, getFraudAnalysis } from '../api/fraudApi';
 import { verifyDescription, updateClaimStatus } from '../api/claimsApi';
+import FraudVerificationPanel from './FraudVerificationPanel';
 
 // ─── ClaimVision AI Result Card ────────────────────────────────────────
 const ClaimVisionResult = ({ result }) => {
@@ -251,8 +252,8 @@ const AgentClaimWorkspace = ({ claim, claimDetails, user, onApprove, onReject, o
                         </div>
                         <div className="flex items-center gap-3">
                             <span className={`px-3 py-1 rounded-full text-sm font-bold ${claim.status === 'APPROVED' ? 'bg-green-100 text-green-800' :
-                                    claim.status === 'REJECTED' ? 'bg-red-100 text-red-800' :
-                                        'bg-yellow-100 text-yellow-800'
+                                claim.status === 'REJECTED' ? 'bg-red-100 text-red-800' :
+                                    'bg-yellow-100 text-yellow-800'
                                 }`}>
                                 {claim.status}
                             </span>
@@ -381,7 +382,11 @@ const AgentClaimWorkspace = ({ claim, claimDetails, user, onApprove, onReject, o
                             )}
                         </div>
 
-                        {/* ── Manual Correction Note ── */}
+                        {/* ── Structured Fraud Verification Panel (New Agent) ── */}
+                        <FraudVerificationPanel
+                            title="Structured Fraud Verification"
+                            allowDirectUpload={true}
+                        />
                         <div className="bg-white rounded-2xl border border-gray-200 p-5">
                             <h4 className="font-bold text-gray-800 flex items-center gap-2 mb-3">
                                 <Edit3 size={18} className="text-gray-500" /> Manual Correction Notes (Internal)

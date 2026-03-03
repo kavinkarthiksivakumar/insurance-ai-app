@@ -1,13 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { FileText, LayoutDashboard, PlusSquare, BarChart3, User } from 'lucide-react';
+import { FileText, LayoutDashboard, PlusSquare, BarChart3, User, ShieldAlert } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
-const NavItem = ({ to, icon: Icon, label }) => (
+const NavItem = ({ to, icon: Icon, label, highlight }) => (
   <NavLink
     to={to}
     className={({ isActive }) =>
-      `flex items-center space-x-3 px-6 py-3 text-gray-400 hover:bg-gray-800 hover:text-white transition-colors cursor-pointer ${isActive ? "bg-gray-800 text-white border-r-4 border-blue-500" : ""}`
+      `flex items-center space-x-3 px-6 py-3 text-gray-400 hover:bg-gray-800 hover:text-white transition-colors cursor-pointer ${isActive ? "bg-gray-800 text-white border-r-4 border-blue-500" : ""} ${highlight ? "border-l-2 border-indigo-500" : ""}`
     }
   >
     <Icon size={20} />
@@ -33,7 +33,9 @@ const Sidebar = () => {
           <NavItem to="/new-claim" icon={PlusSquare} label="New Claim" />
         )}
         <NavItem to="/claims" icon={FileText} label="Claims" />
-        {/* Reports/Profile placeholders */}
+        {(user?.role === 'AGENT' || user?.role === 'ADMIN') && (
+          <NavItem to="/fraud-analysis" icon={ShieldAlert} label="Fraud Analysis" highlight />
+        )}
         {user?.role === 'ADMIN' && (
           <NavItem to="/reports" icon={BarChart3} label="Reports" />
         )}

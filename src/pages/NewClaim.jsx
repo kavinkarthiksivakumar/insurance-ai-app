@@ -3,9 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { createClaim, getClaimTypes } from '../api/claimsApi';
 import { uploadDocument } from '../api/documentsApi';
-import { triggerFraudAnalysis } from '../api/fraudApi';
-import { Upload, X, Shield, AlertCircle } from 'lucide-react';
-import FraudAnalysisCard from '../components/FraudAnalysisCard';
+import { Upload, X, CheckCircle } from 'lucide-react';
 
 const NewClaim = () => {
   const navigate = useNavigate();
@@ -19,10 +17,8 @@ const NewClaim = () => {
   });
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const [submittedClaimId, setSubmittedClaimId] = useState(null);
-  const [fraudResult, setFraudResult] = useState(null);
-  const [analyzingFraud, setAnalyzingFraud] = useState(false);
-  const [showFraudSection, setShowFraudSection] = useState(false);
 
   // Auto-fill the policy number from the logged-in customer's profile
   useEffect(() => {
@@ -107,17 +103,13 @@ const NewClaim = () => {
         }
       }
 
-      // Store claim ID for fraud detection
+      // 3. Mark as submitted — show success banner
       setSubmittedClaimId(claim.id);
-      setShowFraudSection(true);
-
-      alert('✅ Claim submitted successfully! Now you can check the legitimacy of your claim.');
+      setSubmitted(true);
     } catch (error) {
       console.error('Claim submission error:', error);
 
-      // Extract error message from response
       let errorMessage = 'Failed to submit claim. Please check your inputs.';
-
       if (error.response?.data?.message) {
         errorMessage = error.response.data.message;
       } else if (error.response?.data) {
@@ -132,31 +124,6 @@ const NewClaim = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleFraudDetection = async () => {
-    if (!submittedClaimId) {
-      alert('Please submit your claim first');
-      return;
-    }
-
-    setAnalyzingFraud(true);
-    setFraudResult(null);
-
-    try {
-      const result = await triggerFraudAnalysis(submittedClaimId);
-      setFraudResult(result);
-    } catch (error) {
-      console.error('Fraud analysis error:', error);
-      const msg = error.response?.data?.error || error.response?.data?.message || error.message;
-      alert('❌ Fraud analysis failed: ' + msg);
-    } finally {
-      setAnalyzingFraud(false);
-    }
-  };
-
-  const handleComplete = () => {
-    navigate('/dashboard');
   };
 
   return (
@@ -273,71 +240,22 @@ const NewClaim = () => {
         </form>
       </div>
 
-      {/* Fraud Detection Section - Shows after claim submission */}
-      {showFraudSection && (
-        <div className="mt-8 bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-xl shadow-lg border-2 border-blue-200">
-          <div className="flex items-center gap-3 mb-6">
-            <Shield className="text-blue-600" size={32} />
-            <div>
-              <h3 className="text-2xl font-bold text-gray-800">Fraud Detection Analysis</h3>
-              <p className="text-sm text-gray-600">AI-powered legitimacy verification for your claim</p>
-            </div>
-          </div>
-
-          {!fraudResult && !analyzingFraud && (
-            <div className="bg-white rounded-lg p-6 mb-6 border border-blue-100">
-              <div className="flex items-start gap-4">
-                <AlertCircle className="text-blue-500 flex-shrink-0 mt-1" size={24} />
-                <div className="flex-1">
-                  <h4 className="font-semibold text-gray-800 mb-2">Ready to verify your claim?</h4>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Our AI system will analyze the uploaded images and claim details to verify their legitimacy.
-                    This helps speed up the approval process and ensures transparency.
-                  </p>
-                  <button
-                    onClick={handleFraudDetection}
-                    className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center gap-2 shadow-md"
-                  >
-                    <Shield size={20} />
-                    Generate Fraud Report
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {analyzingFraud && (
-            <div className="bg-white rounded-lg p-8 text-center">
-              <div className="flex flex-col items-center gap-4">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-                <p className="text-gray-600 font-medium">Analyzing your claim...</p>
-                <p className="text-sm text-gray-500">This may take a few seconds</p>
-              </div>
-            </div>
-          )}
-
-          {fraudResult && (
-            <div className="space-y-4">
-              <div className="bg-white rounded-lg p-6">
-                <FraudAnalysisCard fraudResult={fraudResult} />
-              </div>
-
-              <div className="flex justify-end gap-3">
-                <button
-                  onClick={handleFraudDetection}
-                  className="px-6 py-2 border-2 border-blue-600 text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-colors"
-                >
-                  Re-analyze
-                </button>
-                <button
-                  onClick={handleComplete}
-                  className="px-6 py-2 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-colors"
-                >
-                  Complete & Go to Dashboard
-                </button>
-              </div>
-            </div>
-          )}
+      {/* Success banner — shown after claim submitted */}
+      {submitted && (
+        <div className="mt-8 bg-green-50 border-2 border-green-200 rounded-xl p-8 text-center">
+          <CheckCircle className="mx-auto text-green-500 mb-4" size={48} />
+          <h3 className="text-xl font-bold text-green-800 mb-2">Claim Submitted Successfully!</h3>
+          <p className="text-green-700 mb-1">Your claim <strong>#{submittedClaimId}</strong> has been received.</p>
+          <p className="text-sm text-green-600 mb-6">
+            Our team will review your documents and update you on the status shortly.
+            You can track your claim status from the dashboard.
+          </p>
+          <button
+            onClick={() => navigate('/dashboard')}
+            className="px-8 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-colors"
+          >
+            Go to Dashboard
+          </button>
         </div>
       )}
     </div>
